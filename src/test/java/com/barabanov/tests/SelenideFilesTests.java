@@ -1,5 +1,6 @@
 package com.barabanov.tests;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.FileDownloadMode;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -34,6 +36,11 @@ public class SelenideFilesTests extends TestBase {
     }
 
 
+    @Test
+    void selenideUploadFile(){
+        open("https://fineuploader.com/demos.html");
 
-
+        $("input[type='file']").uploadFromClasspath("zhabka.jpg");
+        $(".qq-file-name").shouldHave(text("zhabka.jpg"));
+    }
 }
